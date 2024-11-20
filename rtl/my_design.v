@@ -21,7 +21,7 @@ wire [3:0]  B_test1 = 4'd5;
 wire [3:0]  B_test2 = 4'd7;
 wire [3:0]  B_test3 = 4'd9;
 
-CDCSync_Signal_ResetL pu_sig_sync(
+CDCSync_Signal_ResetL U_pu_sig_sync(
                   // Outputs
                   .DO           (pu_sig_sync),
                   // Inputs
@@ -50,6 +50,7 @@ TimingGen U_TG(
            .B_test1         (B_test1[3:0]),
            .B_test2         (B_test2[3:0]),
            .B_test3         (B_test3[3:0]),
-           .C_purstb        (C_purstb));
+           .C_purstb        (C_purstb)
+);
 
 endmodule
