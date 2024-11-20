@@ -39,9 +39,11 @@ ap_DA_test1_chk : assert property(A2Bpp_edge_var(clk, C_purstb, DA_test1, ~DA_te
 //=========================================================================================
 // Assertion Summary 
 //=========================================================================================
-initial
+final
 begin
     $display("");
     $display("[ASSERT] TG Assertion Summary");
     $display("[ASSERT] DA_test1_chk : %d", DA_test1_chk_pass);
 end
+
+endmodule
