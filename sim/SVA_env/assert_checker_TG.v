@@ -11,8 +11,12 @@ module assert_checker_TG (
 );
 
 integer DA_test1_chk_pass;
+integer DA_test2_chk_pass;
+integer DA_test3_chk_pass;
 initial begin
     DA_test1_chk_pass = 0;
+    DA_test2_chk_pass = 0;
+    DA_test3_chk_pass = 0;
 end
 
 //=========================================================================================
@@ -36,6 +40,14 @@ ap_DA_test1_chk : assert property(A2Bpp_edge_var(clk, C_purstb, DA_test1, ~DA_te
                   DA_test1_chk_pass += 1;
                   else $display("Error, DA_test1_chk fail");
 
+ap_DA_test2_chk : assert property(A2Bpp_edge_var(clk, C_purstb, DA_test1, DA_test2, 1, 1'b1 ))  
+                  DA_test2_chk_pass += 1;
+                  else $display("Error, DA_test2_chk fail");
+
+ap_DA_test3_chk : assert property(A2Bpp_edge_var(clk, C_purstb, DA_test1, DA_test3, 1, 1'b1 ))  
+                  DA_test3_chk_pass += 1;
+                  else $display("Error, DA_test3_chk fail");
+
 //=========================================================================================
 // Assertion Summary 
 //=========================================================================================
@@ -44,6 +56,8 @@ begin
     $display("");
     $display("[ASSERT] TG Assertion Summary");
     $display("[ASSERT] DA_test1_chk : %d", DA_test1_chk_pass);
+    $display("[ASSERT] DA_test2_chk : %d", DA_test2_chk_pass);
+    $display("[ASSERT] DA_test3_chk : %d", DA_test3_chk_pass);
 end
 
 endmodule

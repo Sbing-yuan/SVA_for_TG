@@ -6,15 +6,18 @@ run_ivsim:
 run_mdsim:
 	vlib.exe work
 	vlog.exe -sv -timescale "1ns/1ps" TB.v ../rtl/*.v
-	vsim.exe -c -L work -voptargs=+acc -do 'run -all' -do 'exit' TB
+	vsim.exe -sva -c -L work -voptargs=+acc -do 'run -all' -do 'exit' TB
 	rm -rf vsim* work/
 
 run:
 	@echo "" > ModeDef.v
 	make run_mdsim	
 
-run_TG:
+run_ASSERT:
 	@echo "\`define ASSERT_TG" > ModeDef.v
+	@echo "\`define ASSERT_POWER" >> ModeDef.v
+	@echo "\`define ASSERT_GLITCH" >> ModeDef.v
+	@echo "\`define VCDDUMP" >> ModeDef.v
 	make run_mdsim	
 
 GTK:

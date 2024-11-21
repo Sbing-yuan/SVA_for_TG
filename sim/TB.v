@@ -6,7 +6,7 @@
 `endif
 
 `ifdef ASSERT_POWER
-    `include "SVA_env/assert_checker_PMU_Seq.v"
+    `include "SVA_env/assert_checker_PMU.v"
 `endif
 
 `ifdef ASSERT_GLITCH
@@ -61,7 +61,7 @@ DUT U1(
 `endif
 
 `ifdef ASSERT_POWER
-    `include "SVA_env/assertion_shell_PMU_Seq.v"
+    `include "SVA_env/assertion_shell_PMU.v"
 `endif
 
 `ifdef ASSERT_GLITCH
