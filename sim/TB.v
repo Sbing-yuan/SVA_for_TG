@@ -2,7 +2,7 @@
 `include "ModeDef.v"
 
 `ifdef ASSERT_AD
-    `include "SVA_env/assert_checker_ADinterface.v"
+    `include "SVA_env/assert_checker_ADIF.v"
 `endif
 
 `ifdef ASSERT_POWER
@@ -57,7 +57,7 @@ DUT U1(
        .SCL				(SCL));
 
 `ifdef ASSERT_AD
-    `include "SVA_env/assertion_shell_ADinterface.v"
+    `include "SVA_env/assertion_shell_ADIF.v"
 `endif
 
 `ifdef ASSERT_POWER

@@ -17,6 +17,7 @@ run_ASSERT:
 	@echo "\`define ASSERT_TG" > ModeDef.v
 	@echo "\`define ASSERT_POWER" >> ModeDef.v
 	@echo "\`define ASSERT_GLITCH" >> ModeDef.v
+	@echo "\`define ASSERT_AD" >> ModeDef.v
 	@echo "\`define VCDDUMP" >> ModeDef.v
 	make run_mdsim	
 
