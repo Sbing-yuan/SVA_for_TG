@@ -1,8 +1,6 @@
 # SystemVerilog Assertion
 ## Description
 > A SystemVerilog testbench for simple Timing Generator
-## Timing Generator Design
->
 ## SVA checker
 1. Check edge-to-edge distance signal A rising edge to signal B rising edge should have var_witdh #T  
 ```systemverilog
@@ -124,4 +122,28 @@ begin
 end
 
 
+```
+## SVA summary report
+1. Testbench structure
+```
+TB
+--- `include ModeDef.v
+--- `include assert_checker_xx.v
+--- TestPattern
+--- $finish
+```
+2. Final trigger assert_check_xx.v final procedure block to print log
+``` systemverilog
+//=========================================================================================
+// Assertion Summary 
+//=========================================================================================
+final
+begin
+    $display("");
+    $display("[ASSERT] Glitch Assertion Summary");
+    $display("[ASSERT] DA_test4_0_chk_pass : %d", DA_test4_0_chk_pass);
+    $display("[ASSERT] DA_test4_1_chk_pass : %d", DA_test4_1_chk_pass);
+    $display("[ASSERT] DA_test4_2_chk_pass : %d", DA_test4_2_chk_pass);
+    $display("[ASSERT] DA_test4_3_chk_pass : %d", DA_test4_3_chk_pass);
+end
 ```
