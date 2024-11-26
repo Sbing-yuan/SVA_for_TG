@@ -124,7 +124,7 @@ end
 
 ```
 ## SVA summary report
-1. Testbench structure
+1. Testbench structure, TestPatterns are inside TB, SVA checkers are inside assert_checker_xx.v
 ```
 TB
 --- `include ModeDef.v
