@@ -73,13 +73,30 @@ ap_glitch_DA_test4_0: assert property(glitch_p(DA_test4[0], C_purstb, 1'b1 ))
 4. Signal check, check signal @ certain state such as POR, ATPG, SUSPEND
 > when check_event transition(rstb, atpg, susp) wait strobe time(CHK_STROB), latch signals to be check, then use concurrent assertion to check latch value match answer
 ```systemverilog
+wire por_chk_event_tmp = !rstb & !atpg;
+wire atpg_chk_event_tmp = atpg & rstb;
+wire susp_chk_event_tmp = susp & ~atpg;
+wire #(CHK_STROB) por_chk_event_tmp_dly = por_chk_event_tmp;
+wire #(CHK_STROB) atpg_chk_event_tmp_dly = atpg_chk_event_tmp;
+wire #(CHK_STROB) susp_chk_event_tmp_dly = susp_chk_event_tmp;
+wire por_chk_event = por_chk_event_tmp & por_chk_event_tmp_dly;
+wire atpg_chk_event = atpg_chk_event_tmp & atpg_chk_event_tmp_dly;
+wire susp_chk_event = susp_chk_event_tmp & susp_chk_event_tmp_dly;
+
+// xx_chk_event_tmp
+//               _______________
+//      ________/               \___
+// chk_strob ------>
+// x: no_chk
+// v: chk
+// xxxxxxxxxxxxxxxxxvvvvvvvvvvvvxxxxx
+
 //=======================================================================================
 //  assert_ADinterface                                                                   
 //=======================================================================================
-always@(rstb) 
+always@(*) 
 begin
-    #(CHK_STROB);
-    if(!rstb && !atpg)
+    if(por_chk_event)
     begin
         por_chk = 1'b1;
         $display("[ASSERT] POR check @ %t", $realtime);
@@ -91,10 +108,9 @@ begin
     end
 end
 
-always@(atpg)
+always@(*)
 begin
-    #(CHK_STROB);
-    if(atpg && rstb)
+    if(atpg_chk_event)
     begin
         atpg_chk = 1'b1;
         $display("[ASSERT] ATPG check @ %t", $realtime);
@@ -106,10 +122,9 @@ begin
     end
 end
 
-always@(susp)
+always@(*)
 begin
-    #(CHK_STROB);
-    if(susp && ~atpg)
+    if(susp_chk_event)
     begin
         susp_chk = 1'b1;
         $display("[ASSERT] Suspend check @ %t", $realtime);
